@@ -4,11 +4,11 @@ package task.management;
  *
  * @author Oliver
  */
-public class Tablero {
+public class Tablero { 
     // Atributos de cada tablero
     private String nombre;
     private int id;
-
+    
     // Constructo
     public Tablero(String nombre, int id) {
         this.nombre = nombre;
@@ -30,9 +30,5 @@ public class Tablero {
     // Método modificador
     public void setId(int id) {
         this.id = id;
-    }
-    
-    
-    
-    
-}
+    } 
+} // clase tablero  
