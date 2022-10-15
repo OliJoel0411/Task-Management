@@ -1,10 +1,12 @@
 package task.management;
 
+import java.io.Serializable;
+
 /**
  *
  * @author Oliver
  */
-public class Tablero { 
+public class Tablero implements Serializable{ 
     // Atributos de cada tablero
     private String nombre;
     private int id;
@@ -31,4 +33,9 @@ public class Tablero {
     public void setId(int id) {
         this.id = id;
     } 
+    
+    @Override
+     public String toString(){
+        return "Nombre de Tablero " + this.nombre;
+    }
 } // clase tablero  
