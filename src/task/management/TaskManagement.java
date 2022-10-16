@@ -2,6 +2,7 @@
 package task.management;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -24,9 +25,8 @@ public class TaskManagement { //task
       // Objetos tableros
       Tablero tab;
       // Clase file para escribir Tableros
-     
-      
-      
+      File archivo = new File("C:\\Users\\Oliver\\OneDrive\\Escritorio\\Piwi\\Tableros\\tab.txt");
+              
       // Variables globales
       int opc1 = 0, id = 0;
       String nameTab = ""; // variables para opciones 
@@ -51,12 +51,16 @@ public class TaskManagement { //task
             case 1:
                 System.out.println("Creemos tu tablero...");
                 System.out.println("Ingrese el nombre para su Tablero");
+                // Variable para almacenar el nombre del tablero. 
                 nameTab = tc.next();
                 
                         try{
+                        // Objeto tablero que sera el molde para almacer los "Tableros"    
                         tab = new Tablero(nameTab, 0);
+                        // Agrega a nuestro vector el objeto de tipo Tablero para luego ser leído
                         tableros.add(tab);
-                        File archivo = new File("C:\\Users\\Oliver\\OneDrive\\Escritorio\\Piwi\\Tableros\\tab.txt");
+                        // Directorio donde se guardarán lo archivos. 
+                       
                         FileOutputStream flujo = new FileOutputStream(archivo);
 
                         ObjectOutputStream write = new ObjectOutputStream(flujo);
@@ -73,13 +77,27 @@ public class TaskManagement { //task
                 
                 break;
             case 2:
-                if(tableros.size()>0){
+                     try{
+                            // El archivo2 es quien contiene los objetos dentro del archivo de texto
+                            FileInputStream fis = new FileInputStream(archivo);
+                            ObjectInputStream ois = new ObjectInputStream(fis);
+                            tableros=(Vector)ois.readObject();
+                          //  System.out.println(tableros=(Vector)ois.readObject());
+                            }catch (FileNotFoundException e) {
+                                  e.printStackTrace();
+                            } catch (IOException e) {
+                                  e.printStackTrace();
+                            } catch (ClassNotFoundException e) {
+                                  e.printStackTrace();
+                            }
+
+                    
                     Iterator iterator = tableros.iterator();
                     while(iterator.hasNext()){
                     tab=(Tablero)iterator.next();
                     System.out.println(tab.toString());
                     }
-                }
+                
                 break;
             case 3: 
                 opc1 = 3;
