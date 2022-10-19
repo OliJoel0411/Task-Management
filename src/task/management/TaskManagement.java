@@ -1,5 +1,6 @@
 
 package task.management;
+
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -11,102 +12,103 @@ import java.util.Iterator;
 import java.util.Scanner;
 import java.util.Vector;
 
-
 /**
  * @author Oliver
  */
-public class TaskManagement {
+public class TaskManagement { //task
 
     public static void main(String[] args) {
-        // Variables globales
-        int opc1 = 0, i = 1;
-        String error = "Error, ingrese una opcion valida";
-        String nombre = "";
-        // Entrada por teclado 
-        Scanner tc = new Scanner(System.in);
-        
-        // Crear archivo
-        File archivo = new File("C:\\Users\\Oliver\\OneDrive\\Escritorio\\Piwi\\Tableros\\Tablero.txt");
-        
-        // Crear la referencia del objeto de tipo tablero 
-        
-        Tablero tab;
-        
-        // Lugar donde almacenaremos las instancias de tipo tablero
-        
-        Vector tableros = new Vector();
-        
+      Scanner tc = new Scanner(System.in);
+      // Objeto donde iran alojados los tablero  
+      
+      // Objetos tableros
+      Tablero tab;
+      // Clase file para escribir Tableros
+      File archivo = new File("C:\\Users\\Oliver\\OneDrive\\Escritorio\\Piwi\\Tableros\\tab.txt");
+              
+      // Variables globales
+      int opc1 = 0, id = 1;
+      String nameTab = ""; // variables para opciones 
+      
+      // coleccion de tableros 
+      Vector tableros = new Vector();
+      
         do{
-            System.out.println("1. Crear Tablero");
-            System.out.println("2. Ver lista de Tableros");
-            System.out.println("3. Salir");
-            opc1 = tc.nextInt();
-            
-            switch(opc1){ // switch1
-                case 1:
-                    System.out.println("\n \n Ingrese el nombre de su nuevo tablero");
-                    nombre = tc.next();
-                    
-                    try{
-                        // Crear la instancia de nuestro objeto Tablero
-                        tab = new Tablero(nombre, i);
-                        i++;
-                        // Cada vez que cree una instancia la añada al vector
+      // Menu
+        System.out.println("   -- Bienvenido a Piwi --");
+        System.out.println(" --------------------------------");
+        System.out.println("| <- Tu Oganizador de tareas ->  |");
+        System.out.println(" --------------------------------");
+        
+        System.out.println("\nOpciones Disponibles");
+        System.out.println("1. Crear Tablero de Tareas ");
+        System.out.println("2. Tableros Disponibles");
+        System.out.println("3. Salir");
+        opc1 = tc.nextInt();
+        
+        switch(opc1){ // swtich
+            case 1:
+                System.out.println("Creemos tu tablero...");
+                System.out.println("Ingrese el nombre para su Tablero");
+                // Variable para almacenar el nombre del tablero. 
+                nameTab = tc.next();
+                
+                        try{
+                        // Objeto tablero que sera el molde para almacer los "Tableros"    
+                        tab = new Tablero(nameTab, id);
+                        id++;
+                        // Agrega a nuestro vector el objeto de tipo Tablero para luego ser leído
                         tableros.add(tab);
-                        // Escribir en nuestro archivo de tableros
+                        // Directorio donde se guardarán lo archivos. 
+                       
                         FileOutputStream flujo = new FileOutputStream(archivo);
-                        
+
                         ObjectOutputStream write = new ObjectOutputStream(flujo);
                         
-                        // Escribimos nuestro vector en nuestro archivo.txt
                         write.writeObject(tableros);
-                        
-                    }catch(FileNotFoundException e){
-                        e.printStackTrace();
-                    }catch(IOException e){
-                        e.printStackTrace();
+
+                }catch(FileNotFoundException e){
+                    e.printStackTrace();
+                }catch(IOException e){
+                    e.printStackTrace();
+                }
+
+               
+                
+                break;
+            case 2:
+                     try{
+                            // El archivo2 es quien contiene los objetos dentro del archivo de texto
+                            FileInputStream fis = new FileInputStream(archivo);
+                            ObjectInputStream ois = new ObjectInputStream(fis);
+                            tableros=(Vector)ois.readObject();
+                          //  System.out.println(tableros=(Vector)ois.readObject());
+                            }catch (FileNotFoundException e) {
+                                  e.printStackTrace();
+                            } catch (IOException e) {
+                                  e.printStackTrace();
+                            } catch (ClassNotFoundException e) {
+                                  e.printStackTrace();
+                            }
+
+                    
+                    Iterator iterator = tableros.iterator();
+                    while(iterator.hasNext()){
+                    tab=(Tablero)iterator.next();
+                    System.out.println(tab.toString());
                     }
-                    
-                    System.out.println("Tablero creado exitosamente!\n ");
-                    break;
-                case 2:
-                    
-                    try{
-                        
-                        FileInputStream flujo2 = new FileInputStream(archivo);
-                        
-                        ObjectInputStream read = new ObjectInputStream(flujo2);
-                        
-                        tableros=(Vector)read.readObject();
-                        
-                        
-                    }catch(FileNotFoundException e){
-                        e.printStackTrace();
-                    }catch(IOException e){
-                        e.printStackTrace();
-                    }catch(ClassNotFoundException e){
-                        e.printStackTrace();
-                    }
-                    
-                    Iterator it = tableros.iterator();
-                    while(it.hasNext()){
-                        tab=(Tablero)it.next();
-                        System.out.println(tab.toString());
-                    }
-                    
-                    
-                    break;
-                case 3:
-                    System.out.println("Bye   :)");
-                    opc1 = 2;
-                    System.exit(0);
-                    break;
-                default:
-                    System.out.println(error);
-            } // switch1
-            
-        }while(opc1 != 3);
-        
-    }   
+                
+                break;
+            case 3: 
+                opc1 = 3;
+                System.exit(0);
+                break;
+            default:
+                System.out.println("Error, ingrese una opcion correcta. ");
+        }//switch
+        }while(opc1!= 3);
+    }//main
     
-}
+} //task
+
+
