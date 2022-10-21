@@ -37,6 +37,6 @@ public class Tablero implements Serializable{
     @Override
      public String toString(){
 
-        return "-> " +this.id + ")" + " Nombre de Tablero: " + "-- "+this.nombre + " --";
+        return "--> " + " Nombre de Tablero: " + "-- "+this.nombre + " --";
     }
 } // clase tablero  

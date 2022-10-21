@@ -29,6 +29,7 @@ public class ListaTareas implements Serializable {
     }
 
     public String mostrarListas(){
-        return "-> " +this.idList + ")" + " Nombre de Lista: " + "-- "+this.nombreLista + " --";
+        return " Nombre de Lista: " + "-- "+this.nombreLista + " --";
+
     }
 }
