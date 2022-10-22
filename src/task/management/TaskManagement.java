@@ -28,9 +28,9 @@ public class TaskManagement { //task
 
 
       // Clase file para escribir Tableros
-      File archivo = new File("C:\\Users\\Oliver\\OneDrive\\Escritorio\\Piwi\\Tableros\\Tableros.txt");
+      File archivo = new File("C:\\Users\\olive\\Desktop\\Piwi\\Tableros\\Tablero.txt");
       // Clase file para escribir Lista Tareas
-      File archivo2 = new File("C:\\Users\\Oliver\\OneDrive\\Escritorio\\Piwi\\ListTareas\\ListaTareas.txt");
+      File archivo2 = new File("C:\\Users\\olive\\Desktop\\Piwi\\ListaTareas\\ListaTareas.txt");
               
       // Variables globales
       int pivote = 0,opc1 = 0, id = 1, opc3 = 0, opc4 = 0, rm = 0, id2 = 1;
@@ -143,10 +143,39 @@ public class TaskManagement { //task
 
                                         break;
                                     case 2:
+
                                         System.out.println("El tablero especificado es: " + tableros.get(pivote));
 
-                                        System.out.println("Ingrese el nuevo nombre");//*****************************************************************************************
+                                        System.out.println("Ingrese el nuevo nombre");
                                         nuevoNombre = tc.next();
+
+                                        // Remueve el tablero para crear uno nuevo con el nombre siguiente
+                                        tableros.remove(pivote);
+                                        // creamos un nuevo tablero
+                                        tab = new Tablero(nuevoNombre, pivote);
+                                        try{
+
+                                            FileOutputStream fos = new FileOutputStream(archivo);
+                                            // escribe tipos de datos primitivos y gráficos de objetos Java en un OutputStream
+                                            ObjectOutputStream oos = new ObjectOutputStream(fos);
+                                            // Creamos la instancia de nuestro objeto Persona
+
+                                            //Escribimos en el archivo
+                                            oos.writeObject(tableros);
+
+                                            // El archivo2 es quien contiene los objetos dentro del archivo de texto
+                                            FileOutputStream flujo = new FileOutputStream(archivo);
+
+                                            ObjectOutputStream write = new ObjectOutputStream(flujo);
+                                            tableros.add(pivote, tab);
+                                            write.writeObject(tableros);
+
+                                        }catch (FileNotFoundException e) {
+                                            e.printStackTrace();
+                                        } catch (IOException e) {
+                                            e.printStackTrace();
+                                        }
+
 
                                         break;
                                     case 3:
