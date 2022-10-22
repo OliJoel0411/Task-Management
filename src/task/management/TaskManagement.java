@@ -13,7 +13,7 @@ import java.util.Scanner;
 import java.util.Vector;
 
 /**
- * @author Oliver
+ * @author Oliver_Intecap/Edutek
  */
 public class TaskManagement { //task
 
