@@ -41,8 +41,8 @@ public class TaskManagement { //task
 
       // desktop C:\Users\Oliver\OneDrive\Escritorio\Piwi\ListTareas
       // Variables globales
-      int pivote = 0,opc1 = 0, id = 1, opc3 = 0, opc4 = 0, rm = 0, id2 = 1, opc6 = 0, pivote2 = 0, opc7 = 0, id3 = 0;
-      String nameTab = "", nombreListTareas = null, nuevoNombre = null, opc5 = null, nombreTarea = null , nuevoNombreTarea = null; // variables para opciones
+      int pivote = 0,opc1 = 0, id = 1, opc3 = 0, opc4 = 0, rm = 0, id2 = 1, opc6 = 0, pivote2 = 0, opc7 = 0, id3 = 0, opc10= 0;
+      String nameTab = "", nombreListTareas = null, nuevoNombre = null, opc5 = null, nombreTarea = null , nuevoNombreTarea = null, opc8 = null; // variables para opciones
       boolean creat = false;
 
 
@@ -65,7 +65,7 @@ public class TaskManagement { //task
         System.out.println("\nOpciones Disponibles");
         System.out.println("1. Tableros Disponibles ");
         System.out.println("2. Crear Tablero de Tareas");
-        System.out.println("3. Salir");
+        System.out.println("3. Salir\n");
         opc1 = tc.nextInt();
         
         switch(opc1){ // swtich
@@ -103,16 +103,16 @@ public class TaskManagement { //task
                     contador = 1;
                     // Modificando Tableros
 
-                    System.out.println("Desea visualizar algún tablero? \nS/n");
+                    System.out.println("\nDesea visualizar algún tablero? \nS/n");
                     String opc = tc.next();
                     if(opc.equals("S")){
 
-                        System.out.println("Ingrese el Id del tablero que desea visualizar");
+                        System.out.println("\nIngrese el Id del tablero que desea visualizar\n");
                         opc3 = tc.nextInt();
                         if(opc3<= tableros.size()){
                             pivote = opc3 - 1;
                             do{
-                                System.out.println("Ha ingresado al tablero No. " + opc3);
+                                System.out.println("\nHa ingresado al tablero No. " + opc3);
                                 System.out.println("Opciones disponibles");
                                 System.out.println("1. ver listas de Tareas");
                                 System.out.println("2. Agregar lista de Tareas");
@@ -124,7 +124,7 @@ public class TaskManagement { //task
                                 switch(opc4){ // switch
 
                                     case 1:
-                                        System.out.println("Las listas de Tareas disponibles son:");
+                                        System.out.println("\nLas listas de Tareas disponibles son:\n");
                                         if(!archivo2.isFile()){
                                             System.out.println("\nNo hay Listas de tareas\nCree una Lista de Tareas...\n\n");
 
@@ -157,7 +157,7 @@ public class TaskManagement { //task
                                                 opc6 = tc.nextInt();
                                                 pivote2 = opc6 - 1;
                                                     do {
-                                                        System.out.println("Ha ingresado al Lista de Tareas No. " + opc6);
+                                                        System.out.println("\nHa ingresado al Lista de Tareas No. " + opc6);
                                                         System.out.println("Opciones disponibles");
                                                         System.out.println("1. ver  Tareas");
                                                         System.out.println("2. Agregar  Tareas");
@@ -167,7 +167,7 @@ public class TaskManagement { //task
                                                         opc7 = tc.nextInt();
                                                         switch(opc7){
                                                             case 1:
-                                                                System.out.println("Las de Tareas disponibles son:");
+                                                                System.out.println("\nLas de Tareas disponibles son:");
                                                                 if(!archivo3.isFile()){
                                                                     System.out.println("\nNo hay tareas\nCree una Tareas...\n\n");
 
@@ -193,7 +193,33 @@ public class TaskManagement { //task
                                                                     }
                                                                     contador3 = 1;
                                                                 }
+                                                                System.out.println("Desea visualizar alguna Tareas? \nS/n");
+                                                                opc8 = tc.next();
+                                                                if(opc8.equals("S")){
+                                                                    System.out.println("Ingrese el Id de la Tarea que desea visualizar");
+                                                                    int opc9 = tc.nextInt();
+                                                                    pivote2 = opc9 - 1;
+                                                                    do {
+                                                                        System.out.println("\nHa ingresado al la Tareas");
+                                                                        System.out.println("Opciones disponibles");
+                                                                        System.out.println("1. ver  lista de activiades");
+                                                                        System.out.println("2. Agregar  lista de actividades");
+                                                                        System.out.println("3. Cambiar nombre lista de actividades");
+                                                                        System.out.println("4. Borrar  lista de actividades ");
+                                                                        System.out.println("5. Regresar al menu principal");
+                                                                        opc10 = tc.nextInt();
+                                                                        switch (opc10){
+                                                                            case 1:
+                                                                            case 2:
+                                                                            case 3:
+                                                                            case 4:
+                                                                            case 5:
+                                                                        }
+                                                                    }while (opc10 != 5);
 
+                                                                }else {
+
+                                                                }
                                                                 break;
                                                             case 2:
 
@@ -232,7 +258,7 @@ public class TaskManagement { //task
                                                                 break;
                                                             case 3:
 
-                                                                System.out.println("La tareas especificado es: " + tareasV.get(pivote2));
+                                                                System.out.println("\nLa tareas especificado es: " + tareasV.get(pivote2));
 
                                                                 System.out.println("Ingrese el nuevo nombre");
                                                                 nuevoNombreTarea = tc.next();
@@ -261,7 +287,7 @@ public class TaskManagement { //task
                                                                 break;
                                                             case 4:
 
-                                                                System.out.println("Estas seguro de que deseas eliminar el tablero?");
+                                                                System.out.println("\nEstas seguro de que deseas eliminar el tablero?");
                                                                 System.out.println("S/n");
                                                                 String seguro2 = tc.next();
                                                                 if(seguro2.equals("S")) {
@@ -308,7 +334,7 @@ public class TaskManagement { //task
 
                                         break;
                                     case 2:
-                                        System.out.println("Creemos tu lista de tareas");
+                                        System.out.println("\nCreemos tu lista de tareas");
                                         System.out.println("Ingrese el nombre de su lista de tareas");
                                         nombreListTareas = tc.next();
                                         String nombreListTareasOn = nombreListTareas + "  ---> ("+"    de ->tablero No " + opc3 + " ) <---";
@@ -378,7 +404,7 @@ public class TaskManagement { //task
 
                                         break;
                                     case 4:
-                                        System.out.println("Estas seguro de que deseas eliminar el tablero?");
+                                        System.out.println("\nEstas seguro de que deseas eliminar el tablero?");
                                         System.out.println("S/n");
                                         String seguro = tc.next();
                                         if(seguro.equals("S")){
@@ -456,7 +482,7 @@ public class TaskManagement { //task
                 }
                 break;
             case 2:
-                System.out.println("Creemos tu tablero...");
+                System.out.println("\nCreemos tu tablero...");
                 System.out.println("Ingrese el nombre para su Tablero");
                 // Variable para almacenar el nombre del tablero.
                 nameTab = tc.next();
