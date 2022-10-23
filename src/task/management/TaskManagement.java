@@ -25,8 +25,11 @@ public class TaskManagement { //task
       Tablero tab;
       // Objetos Lista Tareas
       ListaTareas listTareass;
-      // Objetos de Tares
-        Tareas tarea;
+      // Objetos de Tare
+      Tareas tarea;
+      // Objeto de Lista de actividades
+      ListaActividades listAct;
+
 
 
       // Clase file para escribir Tableros
@@ -41,8 +44,8 @@ public class TaskManagement { //task
 
       // desktop C:\Users\Oliver\OneDrive\Escritorio\Piwi\ListTareas
       // Variables globales
-      int pivote = 0,opc1 = 0, id = 1, opc3 = 0, opc4 = 0, rm = 0, id2 = 1, opc6 = 0, pivote2 = 0, opc7 = 0, id3 = 0, opc10= 0;
-      String nameTab = "", nombreListTareas = null, nuevoNombre = null, opc5 = null, nombreTarea = null , nuevoNombreTarea = null, opc8 = null; // variables para opciones
+      int pivote = 0,opc1 = 0, id = 1, opc3 = 0, opc4 = 0, rm = 0, id2 = 1, opc6 = 0, pivote2 = 0, opc7 = 0, id3 = 0, opc10= 0, id4 = 0;
+      String nameTab = "", nombreListTareas = null, nuevoNombre = null, opc5 = null, nombreTarea = null , nuevoNombreTarea = null, opc8 = null, nombreTareasOn3 = null, nuevoNombreListaAtc = null; // variables para opciones
       boolean creat = false;
 
 
@@ -57,6 +60,7 @@ public class TaskManagement { //task
        int contador=1;
        int contador2=1;
        int contador3=1;
+       int contador4=1;
         System.out.println("   -- Bienvenido a Piwi --");
         System.out.println(" --------------------------------");
         System.out.println("| <- Tu Oganizador de tareas ->  |");
@@ -153,7 +157,7 @@ public class TaskManagement { //task
                                             System.out.println("Desea visualizar alguna Lista de Tareas? \nS/n");
                                             opc5 = tc.next();
                                             if(opc5.equals("S")){
-                                                System.out.println("Ingrese el Id del tablero que desea visualizar");
+                                                System.out.println("Ingrese el Id del la lista que desea visualizar");
                                                 opc6 = tc.nextInt();
                                                 pivote2 = opc6 - 1;
                                                     do {
@@ -210,10 +214,129 @@ public class TaskManagement { //task
                                                                         opc10 = tc.nextInt();
                                                                         switch (opc10){
                                                                             case 1:
+                                                                                System.out.println("\nLas listas de Tareas disponibles son:\n");
+                                                                                if(!archivo3.isFile()){
+                                                                                    System.out.println("\nNo hay Listas de actividades \n Cree una Lista de actividades...\n\n");
+
+                                                                                }else {
+                                                                                    try {
+                                                                                        FileInputStream fis3 = new FileInputStream(archivo3);
+                                                                                        ObjectInputStream ois3 = new ObjectInputStream(fis3);
+                                                                                        ListaActividadesV = (Vector) ois3.readObject();
+
+                                                                                    } catch (FileNotFoundException e) {
+                                                                                        e.printStackTrace();
+                                                                                    } catch (IOException e) {
+                                                                                        e.printStackTrace();
+                                                                                    } catch (ClassNotFoundException e) {
+                                                                                        e.printStackTrace();
+                                                                                    }
+                                                                                    for (int j = 0; j < listaTareasV.size(); j++) {
+                                                                                        listAct = (ListaActividades) ListaActividadesV.elementAt(j);
+                                                                                        System.out.println(contador2 + " )" + listAct.mostrarDatos());
+                                                                                        contador4++;
+                                                                                    }
+                                                                                }
+                                                                                break;
+
                                                                             case 2:
+                                                                                System.out.println("Creemos tu tareas");
+                                                                                System.out.println("Ingrese el nombre de su tareas");
+                                                                                nombreTareasOn3 = tc.next();
+                                                                                try{
+                                                                                if(id != ListaActividadesV.size()){
+                                                                                    id = ListaActividadesV.size() + 1;
+                                                                                }
+                                                                                listAct = new ListaActividades(nombreTareasOn3, id4);
+                                                                                id3++;
+
+
+                                                                                ListaActividadesV.add(listAct);
+
+
+                                                                                FileOutputStream flujo3 = new FileOutputStream(archivo4);
+
+                                                                                ObjectOutputStream write3 = new ObjectOutputStream(flujo3);
+
+                                                                                write3.writeObject(ListaActividadesV);
+
+
+                                                                        }catch(FileNotFoundException e){
+                                                                            e.printStackTrace();
+                                                                        }catch(IOException e){
+                                                                            e.printStackTrace();
+                                                                        }
+                                                                        System.out.println("\n LISTA DE ACTIVIDADES CREADA EXITOSAMENTE! \n");
+                                                                                break;
                                                                             case 3:
+                                                                                System.out.println("\nLa Lista de actividades especificado es: " + ListaActividadesV.get(pivote2));
+
+                                                                                System.out.println("Ingrese el nuevo nombre");
+                                                                                nuevoNombreListaAtc = tc.next();
+
+
+                                                                                tareasV.remove(pivote2);
+
+                                                                                listAct = new ListaActividades(nuevoNombreListaAtc, pivote2);
+                                                                                try{
+
+                                                                                    FileOutputStream fos3 = new FileOutputStream(archivo4);
+
+                                                                                    ObjectOutputStream oos3 = new ObjectOutputStream(fos3);
+
+
+                                                                                    ListaActividadesV.add(pivote2, listAct);
+                                                                                    oos3.writeObject(tareasV);
+
+                                                                                }catch (FileNotFoundException e) {
+                                                                                    e.printStackTrace();
+                                                                                } catch (IOException e) {
+                                                                                    e.printStackTrace();
+                                                                                }
+                                                                                System.out.println("\n NOMBRE CAMBIADO EXITOSAMENTE!! \n\n");
+                                                                                break;
                                                                             case 4:
+                                                                                //-----------------------------------
+                                                                                System.out.println("\nEstas seguro de que deseas eliminarlo?");
+                                                                                System.out.println("S/n");
+                                                                                String seguro3 = tc.next();
+                                                                                if(seguro3.equals("S")) {
+                                                                                    System.out.println("Borrando ...");
+                                                                                    rm = opc10;
+                                                                                    rm = rm - 1;
+                                                                                    ListaActividadesV.remove(rm);
+
+
+                                                                                    try {
+
+
+                                                                                        FileOutputStream flujo3 = new FileOutputStream(archivo4);
+
+                                                                                        ObjectOutputStream write3 = new ObjectOutputStream(flujo3);
+
+                                                                                        write3.writeObject(ListaActividadesV);
+
+                                                                                    } catch (FileNotFoundException e) {
+                                                                                        e.printStackTrace();
+                                                                                    } catch (IOException e) {
+                                                                                        e.printStackTrace();
+                                                                                    }
+
+                                                                                    for (int i = 0; i < ListaActividadesV.size(); i++) {
+                                                                                        listAct = (ListaActividades) ListaActividadesV.elementAt(i);
+                                                                                        System.out.println(contador3 + " )" + listAct.mostrarDatos());
+                                                                                        contador3++;
+                                                                                    }
+                                                                                }else {
+                                                                                    System.out.println("\n Regresando al menu principal...\n");
+                                                                                }
+                                                                                //-----------------------------------
+                                                                                break;
                                                                             case 5:
+                                                                                break;
+                                                                            default:
+                                                                                System.out.println("ingrese una opcion correcta");
+                                                                                break;
                                                                         }
                                                                     }while (opc10 != 5);
 
