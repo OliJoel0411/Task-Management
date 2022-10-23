@@ -24,27 +24,39 @@ public class TaskManagement { //task
       // Objetos tableros
       Tablero tab;
       // Objetos Lista Tareas
-      ListaTareas listTarea;
+      ListaTareas listTareass;
+      // Objetos de Tares
+        Tareas tarea;
 
 
       // Clase file para escribir Tableros
-      File archivo = new File("C:\\Users\\olive\\Desktop\\Piwi\\Tableros\\Tablero.txt");
+      File archivo = new File("C:\\Users\\Oliver\\OneDrive\\Escritorio\\Piwi\\Tableros\\Tablero.txt");
       // Clase file para escribir Lista Tareas
-      File archivo2 = new File("C:\\Users\\olive\\Desktop\\Piwi\\ListaTareas\\ListaTareas.txt");
-              
+      File archivo2 = new File("C:\\Users\\Oliver\\OneDrive\\Escritorio\\Piwi\\ListTareas\\ListaTareas.txt");
+      // Clase file para escribir las Tareas
+      File archivo3 = new File("C:\\Users\\Oliver\\OneDrive\\Escritorio\\Piwi\\ListTareas\\Tareas\\Tareas.txt");
+      // Clase file para escribir lista de actividades
+      File archivo4 = new File("C:\\Users\\Oliver\\OneDrive\\Escritorio\\Piwi\\ListTareas\\Tareas\\ListaActividades\\ListaActividades.txt");
+
+
+      // desktop C:\Users\Oliver\OneDrive\Escritorio\Piwi\ListTareas
       // Variables globales
-      int pivote = 0,opc1 = 0, id = 1, opc3 = 0, opc4 = 0, rm = 0, id2 = 1;
-      String nameTab = "", nombreListTareas = null, nuevoNombre = null; // variables para opciones
+      int pivote = 0,opc1 = 0, id = 1, opc3 = 0, opc4 = 0, rm = 0, id2 = 1, opc6 = 0, pivote2 = 0, opc7 = 0, id3 = 0;
+      String nameTab = "", nombreListTareas = null, nuevoNombre = null, opc5 = null, nombreTarea = null , nuevoNombreTarea = null; // variables para opciones
       boolean creat = false;
 
 
-      // coleccion de tableros 
+      // colecciones
       Vector tableros = new Vector();
-      Vector listaTareas = new Vector();
+      Vector listaTareasV = new Vector();
+      Vector tareasV = new Vector();
+      Vector ListaActividadesV = new Vector();
       
         do{
       // Menu
        int contador=1;
+       int contador2=1;
+       int contador3=1;
         System.out.println("   -- Bienvenido a Piwi --");
         System.out.println(" --------------------------------");
         System.out.println("| <- Tu Oganizador de tareas ->  |");
@@ -102,36 +114,223 @@ public class TaskManagement { //task
                             do{
                                 System.out.println("Ha ingresado al tablero No. " + opc3);
                                 System.out.println("Opciones disponibles");
-                                System.out.println("1. Agregar lista de Tareas");
-                                System.out.println("2. Cambiar nombre de Tablero");
-                                System.out.println("3. Borrar Tablero");
-                                System.out.println("4. Regresar al menu principal");
+                                System.out.println("1. ver listas de Tareas");
+                                System.out.println("2. Agregar lista de Tareas");
+                                System.out.println("3. Cambiar nombre de Tablero");
+                                System.out.println("4. Borrar Tablero");
+                                System.out.println("5. Regresar al menu principal");
                                 opc4 = tc.nextInt();
 
                                 switch(opc4){ // switch
 
                                     case 1:
+                                        System.out.println("Las listas de Tareas disponibles son:");
+                                        if(!archivo2.isFile()){
+                                            System.out.println("\nNo hay Listas de tareas\nCree una Lista de Tareas...\n\n");
+
+                                        }else{
+                                            try{
+
+                                                // El archivo2 es quien contiene los objetos dentro del archivo de texto
+                                                FileInputStream fis2 = new FileInputStream(archivo2);
+                                                ObjectInputStream ois2 = new ObjectInputStream(fis2);
+                                                listaTareasV=(Vector)ois2.readObject();
+                                                //  System.out.println(listaTareas=(Vector)ois2.readObject());
+                                            }catch (FileNotFoundException e) {
+                                                e.printStackTrace();
+                                            } catch (IOException e) {
+                                                e.printStackTrace();
+                                            } catch (ClassNotFoundException e) {
+                                                e.printStackTrace();
+                                            }
+                                            for (int j = 0; j < listaTareasV.size(); j++) {
+                                                listTareass=(ListaTareas)listaTareasV.elementAt(j);
+                                                System.out.println( contador2 +" )"+listTareass.mostrarListas());
+                                                contador2++;
+                                            }
+                                            contador2 = 1;
+
+                                            System.out.println("Desea visualizar alguna Lista de Tareas? \nS/n");
+                                            opc5 = tc.next();
+                                            if(opc5.equals("S")){
+                                                System.out.println("Ingrese el Id del tablero que desea visualizar");
+                                                opc6 = tc.nextInt();
+                                                pivote2 = opc6 - 1;
+                                                    do {
+                                                        System.out.println("Ha ingresado al Lista de Tareas No. " + opc6);
+                                                        System.out.println("Opciones disponibles");
+                                                        System.out.println("1. ver  Tareas");
+                                                        System.out.println("2. Agregar  Tareas");
+                                                        System.out.println("3. Cambiar nombre Tareas");
+                                                        System.out.println("4. Borrar  Tareas");
+                                                        System.out.println("5. Regresar al menu principal");
+                                                        opc7 = tc.nextInt();
+                                                        switch(opc7){
+                                                            case 1:
+                                                                System.out.println("Las de Tareas disponibles son:");
+                                                                if(!archivo3.isFile()){
+                                                                    System.out.println("\nNo hay tareas\nCree una Tareas...\n\n");
+
+                                                                }else{
+                                                                    try{
+
+                                                                        // El archivo3 es quien contiene los objetos dentro del archivo de texto
+                                                                        FileInputStream fis3 = new FileInputStream(archivo3);
+                                                                        ObjectInputStream ois3 = new ObjectInputStream(fis3);
+                                                                        tareasV=(Vector)ois3.readObject();
+
+                                                                    }catch (FileNotFoundException e) {
+                                                                        e.printStackTrace();
+                                                                    } catch (IOException e) {
+                                                                        e.printStackTrace();
+                                                                    } catch (ClassNotFoundException e) {
+                                                                        e.printStackTrace();
+                                                                    }
+                                                                    for (int y = 0; y < tareasV.size(); y++) {
+                                                                        tarea=(Tareas)tareasV.elementAt(y);
+                                                                        System.out.println( contador3 +" )"+tarea.mostrarDatos());
+                                                                        contador3++;
+                                                                    }
+                                                                    contador3 = 1;
+                                                                }
+
+                                                                break;
+                                                            case 2:
+
+                                                                System.out.println("Creemos tu tareas");
+                                                                System.out.println("Ingrese el nombre de su tareas");
+                                                                nombreTarea = tc.next();
+                                                                String nombreTareasOn = nombreTarea + "  -- ("+"    de ->tablero No " + opc3 + " )--  " + "de -> Lista de Tareas No. " + opc6;
+
+
+                                                                try{
+
+                                                                    if(id != tareasV.size()){
+                                                                        id = tareasV.size() + 1;
+                                                                    }
+                                                                    tarea = new Tareas(nombreTareasOn, id3);
+                                                                    id3++;
+
+
+                                                                    tareasV.add(tarea);
+
+
+                                                                    FileOutputStream flujo3 = new FileOutputStream(archivo3);
+
+                                                                    ObjectOutputStream write3 = new ObjectOutputStream(flujo3);
+
+                                                                    write3.writeObject(tareasV);
+
+
+                                                                }catch(FileNotFoundException e){
+                                                                    e.printStackTrace();
+                                                                }catch(IOException e){
+                                                                    e.printStackTrace();
+                                                                }
+                                                                System.out.println("\n TAREAS CREADA EXITOSAMENTE! \n");
+
+                                                                break;
+                                                            case 3:
+
+                                                                System.out.println("La tareas especificado es: " + tareasV.get(pivote2));
+
+                                                                System.out.println("Ingrese el nuevo nombre");
+                                                                nuevoNombreTarea = tc.next();
+                                                                String nombreTareasOn2 = nuevoNombreTarea + "  -- ("+"    de ->tablero No " + opc3 + " )--  " + "de -> Lista de Tareas No. " + opc6;
+
+                                                                tareasV.remove(pivote2);
+
+                                                                tarea = new Tareas(nombreTareasOn2, pivote2);
+                                                                try{
+
+                                                                    FileOutputStream fos3 = new FileOutputStream(archivo3);
+
+                                                                    ObjectOutputStream oos3 = new ObjectOutputStream(fos3);
+
+
+                                                                    tareasV.add(pivote2, tarea);
+                                                                    oos3.writeObject(tareasV);
+
+                                                                }catch (FileNotFoundException e) {
+                                                                    e.printStackTrace();
+                                                                } catch (IOException e) {
+                                                                    e.printStackTrace();
+                                                                }
+                                                                System.out.println("\n NOMBRE CAMBIADO EXITOSAMENTE!! \n\n");
+
+                                                                break;
+                                                            case 4:
+
+                                                                System.out.println("Estas seguro de que deseas eliminar el tablero?");
+                                                                System.out.println("S/n");
+                                                                String seguro2 = tc.next();
+                                                                if(seguro2.equals("S")) {
+                                                                    System.out.println("Borrando Tarea...");
+                                                                    rm = opc6;
+                                                                    rm = rm - 1;
+                                                                    tareasV.remove(rm);
+
+
+                                                                    try {
+
+
+                                                                        FileOutputStream flujo3 = new FileOutputStream(archivo3);
+
+                                                                        ObjectOutputStream write3 = new ObjectOutputStream(flujo3);
+
+                                                                        write3.writeObject(tareasV);
+
+                                                                    } catch (FileNotFoundException e) {
+                                                                        e.printStackTrace();
+                                                                    } catch (IOException e) {
+                                                                        e.printStackTrace();
+                                                                    } // prueba
+
+                                                                    for (int i = 0; i < tareasV.size(); i++) {
+                                                                        tarea = (Tareas) tareasV.elementAt(i);
+                                                                        System.out.println(contador3 + " )" + tarea.mostrarDatos());
+                                                                        contador3++;
+                                                                    }
+                                                                }else {
+                                                                    System.out.println("\n Regresando al menu principal...\n");
+                                                                }
+
+                                                                break;
+                                                            case 5:
+                                                                opc6 = 5;
+                                                                break;
+                                                        }
+                                                    }while (opc6 != 5);
+                                            }else {
+                                                System.out.println("Regresando . . . ");
+                                            }
+                                        }
+
+                                        break;
+                                    case 2:
                                         System.out.println("Creemos tu lista de tareas");
                                         System.out.println("Ingrese el nombre de su lista de tareas");
                                         nombreListTareas = tc.next();
+                                        String nombreListTareasOn = nombreListTareas + "  ---> ("+"    de ->tablero No " + opc3 + " ) <---";
 
+                                        // List1 ( tablero No 4 )
                                         try{
                                             // Objeto tablero que sera el molde para almacer los "Tableros"
-                                            if(id != listaTareas.size()){ // vector para lista de tareas
-                                                id = listaTareas.size() + 1;
+                                            if(id != listaTareasV.size()){ // vector para lista de tareas
+                                                id = listaTareasV.size() + 1;
                                             }
-                                            listTarea = new ListaTareas(nombreListTareas, id2);
+                                            listTareass = new ListaTareas(nombreListTareasOn, id2);
                                             id2++;
 
                                             // Agrega a nuestro vector el objeto de tipo Tablero para luego ser leído
-                                            listaTareas.add(listTarea);
+                                            listaTareasV.add(listTareass);
                                             // Directorio donde se guardarán lo archivos.
 
                                             FileOutputStream flujo = new FileOutputStream(archivo2);
 
                                             ObjectOutputStream write = new ObjectOutputStream(flujo);
 
-                                            write.writeObject(listaTareas);
+                                            write.writeObject(listaTareasV);
 
 
                                         }catch(FileNotFoundException e){
@@ -141,8 +340,9 @@ public class TaskManagement { //task
                                         }
                                         System.out.println("\n LISTA DE TAREAS CREADA EXITOSAMENTE! \n");
 
+
                                         break;
-                                    case 2:
+                                    case 3:
 
                                         System.out.println("El tablero especificado es: " + tableros.get(pivote));
 
@@ -176,9 +376,8 @@ public class TaskManagement { //task
                                             e.printStackTrace();
                                         }
 
-
                                         break;
-                                    case 3:
+                                    case 4:
                                         System.out.println("Estas seguro de que deseas eliminar el tablero?");
                                         System.out.println("S/n");
                                         String seguro = tc.next();
@@ -188,8 +387,8 @@ public class TaskManagement { //task
                                             rm = rm - 1;
                                             tableros.remove(rm);
 
-                                           //****
-                                                System.out.println("Lista de Tableros actualizado");
+                                            //****
+                                            System.out.println("Lista de Tableros actualizado");
                                                /* for (int i = 0; i < tableros.size(); i++) {
                                                     tab=(Tablero)tableros.elementAt(i);
                                                     System.out.println(tab.toString());
@@ -201,23 +400,23 @@ public class TaskManagement { //task
                                             }*/
 
 
-                                                try{
+                                            try{
 
-                                                    // Agrega a nuestro vector el objeto de tipo Tablero para luego ser leído
+                                                // Agrega a nuestro vector el objeto de tipo Tablero para luego ser leído
 
-                                                    // Directorio donde se guardarán lo archivos.
+                                                // Directorio donde se guardarán lo archivos.
 
-                                                    FileOutputStream flujo = new FileOutputStream(archivo);
+                                                FileOutputStream flujo = new FileOutputStream(archivo);
 
-                                                    ObjectOutputStream write = new ObjectOutputStream(flujo);
+                                                ObjectOutputStream write = new ObjectOutputStream(flujo);
 
-                                                    write.writeObject(tableros);
+                                                write.writeObject(tableros);
 
-                                                }catch(FileNotFoundException e){
-                                                    e.printStackTrace();
-                                                }catch(IOException e){
-                                                    e.printStackTrace();
-                                                } // prueba
+                                            }catch(FileNotFoundException e){
+                                                e.printStackTrace();
+                                            }catch(IOException e){
+                                                e.printStackTrace();
+                                            } // prueba
                                                 /*tableros.iterator();
                                                 while(iterator.hasNext()){
                                                     tab=(Tablero)iterator.next();
@@ -229,7 +428,7 @@ public class TaskManagement { //task
                                                 contador++;
                                             }
 
-                                                opc4 = 4;
+                                            opc4 = 4;
 
 
                                         }else {
@@ -237,15 +436,15 @@ public class TaskManagement { //task
                                             opc4 = 4;
                                         }
                                         break;
-                                    case 4:
-                                        opc4 = 4;
+                                    case 5:
+                                        opc4 = 5;
                                         break;
                                     default:
                                         System.out.println("Error ingrese una opcion correcta");
 
 
                                 }// switch opc4
-                            }while(opc4 != 4);
+                            }while(opc4 != 5);
                         }else {
                             System.out.println("Id incorrecto");
                             System.out.println(":(");
